@@ -1,33 +1,32 @@
-import './App.css';
+// import { useState } from 'react';
+import * as React from 'react';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-import { useState } from 'react';
-
-import reactLogo from '~/assets/react.svg';
-import { useGetPostsQuery } from '~/query/services/posts.ts';
+import CategoryPage from '~/pages/category';
+import MainPage from '~/pages/main';
+import SubCategory from '~/pages/subCategory';
+// import { useGetPostsQuery } from '~/query/services/posts.ts';
+import MainLayout from '~/widgets/layout';
 
 function App() {
-    const [count, setCount] = useState(0);
-    const { data: _data, isLoading: _isLoading } = useGetPostsQuery();
+    // const [count, setCount] = useState(0);
+    // const { data: _data, isLoading: _isLoading } = useGetPostsQuery();
 
     return (
-        <>
-            <div>
-                <a href='https://vite.dev' target='_blank'>
-                    <img src='/vite.svg' className='logo' alt='Vite logo' />
-                </a>
-                <a href='https://react.dev' target='_blank'>
-                    <img src={reactLogo} className='logo react' alt='React logo' />
-                </a>
-            </div>
-            <h1>Vite + React</h1>
-            <div className='card'>
-                <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className='read-the-docs'>Click on the Vite and React logos to learn more</p>
-        </>
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<MainLayout />}>
+                    <Route index element={<Navigate to='/main' replace />} />
+                    <Route path='main' element={<MainPage />} />
+                    <Route
+                        path='main/juiciest'
+                        element={<CategoryPage overrideCategory='juiciest' />}
+                    />
+                    <Route path=':category' element={<CategoryPage />} />
+                    <Route path=':category/:option' element={<SubCategory />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
     );
 }
 
