@@ -5,7 +5,7 @@ import { Tags } from '~/query/constants/tags.ts';
 import { apiSlice } from '~/query/create-api.ts';
 
 export const postsApiSlice = apiSlice
-    .enhanceEndpoints({
+    .enhanceEndpoints?.({
         addTagTypes: [Tags.POSTS],
     })
     .injectEndpoints({
