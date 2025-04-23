@@ -1,27 +1,31 @@
-import { css } from '@chakra-ui/react';
-
 export const sliderStyle = {
     container: {
         position: 'relative',
         w: '100%',
         h: '100%',
-        overflow: 'hidden',
+        // overflow: 'hidden',
     },
-    sliderWrapper: {
-        w: 'inherit',
-        h: 'inherit',
-        overflowX: 'auto' as const,
-        gap: { bp: '24px', base: '12px' },
-        scrollbar: css({
-            scrollbarWidth: 'none',
-            '&::-webkit-scrollbar': { display: 'none' },
-        }),
+
+    arrowButton: {
+        display: { base: 'none', bp: 'block' },
+        boxSize: 12,
+        bg: 'black',
+        color: 'lime.50',
+        _hover: { bg: 'gray.800' },
+        p: 3,
     },
-    navigationButton: {
-        position: 'absolute' as const,
+
+    arrowButtonLeft: {
+        position: 'absolute',
+        left: -1,
         top: '50%',
         transform: 'translateY(-50%)',
-        variant: 'ghost' as const,
-        borderRadius: 'full',
+    },
+
+    arrowButtonRight: {
+        position: 'absolute',
+        right: -1,
+        top: '50%',
+        transform: 'translateY(-50%)',
     },
 };

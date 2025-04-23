@@ -1,8 +1,7 @@
 import { GridItem } from '@chakra-ui/react';
+import { BsBookmarkHeart, BsFillPeopleFill } from 'react-icons/bs';
 
-import ChoiceIcon from '~/assets/icons/choice';
 import SmileIcon from '~/assets/icons/smile';
-import UsersIcon from '~/assets/icons/users';
 import BreadcrumbComponent from '~/components/breadcrumb';
 import BurgerButton from '~/components/buttons/Burger';
 import Logo from '~/widgets/header/Logo';
@@ -12,11 +11,11 @@ import User from '~/widgets/header/user';
 
 const STATISTIC_CONFIG = [
     {
-        icon: ChoiceIcon,
+        icon: BsBookmarkHeart,
         value: 185,
     },
     {
-        icon: UsersIcon,
+        icon: BsFillPeopleFill,
         value: 589,
     },
     {
@@ -29,7 +28,7 @@ const Header = () => (
         <Logo />
         <BreadcrumbComponent />
         <User />
-        <StatisticComponent sx={headerStyle.statistic} config={STATISTIC_CONFIG} />
+        <StatisticComponent variant='header' config={STATISTIC_CONFIG} />
         <BurgerButton />
     </GridItem>
 );

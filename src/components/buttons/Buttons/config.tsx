@@ -1,8 +1,8 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
-import { ButtonProps, Text } from '@chakra-ui/react';
+import { ButtonProps, Icon, Text } from '@chakra-ui/react';
 import { JSX } from 'react';
+import { BsBookmarkHeart } from 'react-icons/bs';
 
-import ChoiceIcon from '~/assets/icons/choice';
 import { VariantType } from '~/components/buttons/Buttons/type.tsx';
 
 export const buttonConfig: Record<
@@ -25,7 +25,7 @@ export const buttonConfig: Record<
     },
     save: {
         children: <Text display={{ base: 'none', md: 'inline' }}>Сохранить</Text>,
-        leftIcon: <ChoiceIcon size={18} />,
+        leftIcon: <Icon as={BsBookmarkHeart} boxSize={{ base: '12px', bp3: '14px' }} />,
         styleProps: {
             variant: 'outline',
             borderColor: 'gray.150',
@@ -35,6 +35,9 @@ export const buttonConfig: Record<
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            iconSpacing: { base: 0, md: 2 },
+            paddingInlineStart: { base: '6px !important', md: '8px !important' },
+            paddingInlineEnd: { base: '6px !important', md: '8px !important' },
         },
     },
     cook: {

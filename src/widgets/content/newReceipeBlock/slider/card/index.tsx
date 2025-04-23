@@ -1,4 +1,4 @@
-import { Card, Flex, Text } from '@chakra-ui/react';
+import { Card, Flex, Image, Text } from '@chakra-ui/react';
 import { JSX } from 'react';
 
 import ButtonComponent from '~/components/buttons/Buttons';
@@ -17,73 +17,52 @@ const CardComponent = ({
     category,
     statistics = [],
     recommended,
-    variant,
+    variant = 'slider',
     sx = {},
     ...rest
 }): JSX.Element => {
-    const variantStyles = variant ? (cardVariants[variant] ?? {}) : {};
+    const base = cardBaseStyle;
+    const variantStyle = variant !== 'base' ? (cardVariants[variant] ?? {}) : {};
 
-    const mergedWrapper = {
-        ...cardBaseStyle.wrapper,
-        ...variantStyles.wrapper,
-        ...sx,
-    };
-
-    const mergedDescription = {
-        ...variantStyles.description,
-    };
-
-    const mergedCategory = {
-        ...cardBaseStyle.category,
-        ...variantStyles.category,
-    };
-
-    const mergedButtons = {
-        ...variantStyles.buttons,
+    const combinedStyles = {
+        wrapper: { ...base.wrapper, ...variantStyle.wrapper, ...sx },
+        image: { ...base.image, ...variantStyle.image },
+        description: { ...variantStyle.description },
+        label: { ...base.textLabel, ...variantStyle.label },
+        text: { ...base.textDescription, ...variantStyle.text },
+        infoBlock: { ...base.description, ...variantStyle.infoBlock },
+        category: { ...base.category, ...variantStyle.category },
+        categoryTab: variantStyle.categoryTab ?? {},
+        buttons: variantStyle.buttons ?? {},
+        recommended: base.recommended,
     };
 
     return (
-        <Card
-            sx={{
-                ...mergedWrapper,
-                _hover: {
-                    boxShadow:
-                        '0 2px 4px -1px rgba(32, 126, 0, 0.06), 0 4px 6px -1px rgba(32, 126, 0, 0.1)',
-                    transition: 'all 0.3s ease-in-out',
-                },
-            }}
-            {...rest}
-        >
+        <Card sx={combinedStyles.wrapper} {...rest}>
             {variant === 'cardItem' && recommended && (
-                <UserRecommendedComponent sx={cardBaseStyle.recommended} />
-            )}
-            {image && (
-                <Flex
-                    sx={{ ...cardBaseStyle.wrapper.image, ...mergedWrapper.image }}
-                    backgroundImage={`url(${image})`}
-                    backgroundSize='cover'
-                    backgroundPosition='center'
-                />
+                <UserRecommendedComponent sx={combinedStyles.recommended} />
             )}
 
-            <Flex sx={mergedDescription}>
+            {image && (
+                <Flex sx={combinedStyles.image}>
+                    <Image
+                        src={image}
+                        alt='Описание изображения'
+                        objectFit='cover'
+                        objectPosition='center'
+                        width='100%'
+                        height='100%'
+                        transition='all 0.3s ease'
+                    />
+                </Flex>
+            )}
+
+            <Flex sx={combinedStyles.description}>
                 {(label || description) && (
-                    <Flex
-                        sx={{
-                            ...cardBaseStyle.description.infoBlock,
-                            ...mergedDescription.infoBlock,
-                        }}
-                    >
-                        {label && (
-                            <Text sx={{ ...cardBaseStyle.text, ...mergedDescription.label }}>
-                                {label}
-                            </Text>
-                        )}
+                    <Flex sx={combinedStyles.infoBlock}>
+                        {label && <Text sx={combinedStyles.label}>{label}</Text>}
                         {description && (
-                            <Text
-                                noOfLines={3}
-                                sx={{ ...cardBaseStyle.text, ...mergedDescription.text }}
-                            >
+                            <Text noOfLines={3} sx={combinedStyles.text}>
                                 {description}
                             </Text>
                         )}
@@ -91,23 +70,22 @@ const CardComponent = ({
                 )}
 
                 {(category || statistics.length > 0) && (
-                    <Flex sx={{ ...mergedCategory }}>
+                    <Flex sx={combinedStyles.category}>
                         {category?.label && (
                             <CategoryComponent
-                                sx={{
-                                    ...(variantStyles?.category?.tab ?? {}),
-                                }}
+                                sx={combinedStyles.categoryTab}
                                 icon={category.icon}
                                 description={category.label}
                             />
                         )}
                         {statistics.length > 0 && (
-                            <StatisticComponent sx={cardBaseStyle.category} config={statistics} />
+                            <StatisticComponent variant='card' config={statistics} />
                         )}
                     </Flex>
                 )}
+
                 {variant === 'cardItem' && (
-                    <Flex sx={mergedButtons}>
+                    <Flex sx={combinedStyles.buttons}>
                         <ButtonComponent variantType='save' />
                         <ButtonComponent variantType='cook' />
                     </Flex>

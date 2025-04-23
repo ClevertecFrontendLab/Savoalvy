@@ -1,24 +1,41 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Icon, Text } from '@chakra-ui/react';
 import { JSX } from 'react';
 
 import { statisticStyle } from '~/widgets/header/statistic/style.tsx';
 
-const StatisticComponent = ({ ...props }): JSX.Element => (
-    <Flex sx={{ ...statisticStyle.wrapper, ...props.sx, ...props.sx.statistic }}>
-        {props.config?.map(({ icon: Icon, value }, index) => (
-            <Flex
-                key={index}
-                sx={{
-                    ...statisticStyle.item,
-                    ...props.sx?.item,
-                    ...props.sx?.statistic?.item,
-                }}
-            >
-                <Icon boxSize={{ base: '12px', md: '16px' }} />
-                <Text sx={{ ...statisticStyle.item.text, ...props.sx?.text }}>{value}</Text>
-            </Flex>
-        ))}
-    </Flex>
-);
+type StatisticItem = {
+    // icon: any;
+    value: string;
+};
+
+type Variant = keyof typeof statisticStyle;
+
+type Props = {
+    config: StatisticItem[];
+    variant?: Variant;
+};
+
+const StatisticComponent = ({ config, variant }: Props): JSX.Element => {
+    const base = statisticStyle?.base;
+    const variantStyle = variant && variant !== 'base' ? statisticStyle[variant] : {};
+
+    const combinedStyles = {
+        wrapper: { ...base?.wrapper, ...variantStyle?.wrapper },
+        item: { ...base?.item, ...variantStyle?.item },
+        text: { ...base?.text, ...variantStyle?.text },
+        icon: { ...base?.icon, ...variantStyle?.icon },
+    };
+
+    return (
+        <Flex sx={combinedStyles.wrapper}>
+            {config.map(({ icon: IconComponent, value }, index) => (
+                <Flex key={index} sx={combinedStyles?.item}>
+                    <Icon as={IconComponent} sx={combinedStyles?.icon} />
+                    <Text sx={combinedStyles?.text}>{value}</Text>
+                </Flex>
+            ))}
+        </Flex>
+    );
+};
 
 export default StatisticComponent;

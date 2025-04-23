@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { HStack, Text, VStack } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
 
 import IngredientButton from '~/components/buttons/Ingredient';
@@ -20,22 +20,22 @@ const IngredientBlock = () => {
     const descriptionText = currentCategory?.text || '';
 
     return (
-        <Flex sx={ingredientStyle.wrapper}>
-            <Flex sx={ingredientStyle.labelPageWrapper}>
+        <VStack sx={ingredientStyle.wrapper}>
+            <VStack sx={ingredientStyle.labelPageWrapper}>
                 <Text sx={ingredientStyle.label}>{labelText}</Text>
                 <Text sx={ingredientStyle.text}>{descriptionText}</Text>
-            </Flex>
-            <Flex sx={ingredientStyle.fieldsWrapper}>
-                <Flex sx={ingredientStyle.findItem}>
+            </VStack>
+            <VStack sx={ingredientStyle.fieldsWrapper}>
+                <HStack sx={ingredientStyle.findItem}>
                     <IngredientButton />
                     <SearchField />
-                </Flex>
-                <Flex sx={ingredientStyle.chooseItem}>
+                </HStack>
+                <HStack sx={ingredientStyle.chooseItem}>
                     <Switcher />
                     <MultiSelect />
-                </Flex>
-            </Flex>
-        </Flex>
+                </HStack>
+            </VStack>
+        </VStack>
     );
 };
 

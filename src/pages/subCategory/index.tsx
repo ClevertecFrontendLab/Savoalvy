@@ -18,7 +18,7 @@ const SubCategory = () => {
     return (
         <GridItem sx={subCategoryPageStyle}>
             <IngredientBlock />
-            <TabComponent category={categoryData.value} />
+            <TabComponent variant='categoryTabs' category={categoryData.value} />
             <JuiciestBlock count={8} tabLabel={optionData.label} />
             <OtherBlock />
         </GridItem>

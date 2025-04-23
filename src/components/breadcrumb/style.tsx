@@ -1,8 +1,10 @@
 export const breadcrumbStyles = {
     container: {
-        fontSize: 'sm',
-        m: '0 auto 0 0',
         display: { base: 'none', md: 'flex' },
+        m: '0 auto 0 0',
+        fontSize: 'sm',
+        fontWeight: 'normal',
+        lineHeight: 1.5,
         whiteSpace: 'nowrap',
     },
     link: {

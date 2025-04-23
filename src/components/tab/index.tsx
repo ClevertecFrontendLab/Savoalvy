@@ -1,41 +1,43 @@
 import { Tab, TabList, Tabs } from '@chakra-ui/react';
 import { JSX } from 'react';
 
-import { menuConfig } from '~/components/menuList/menuConfig.tsx';
-import { tabStyle } from '~/components/tab/style.tsx';
+import { useMenuSelection } from '~/common/CustomHooks/useMenuSelection.tsx';
+import { menuConfig } from '~/components/menuList/menuConfig';
+import { tabBaseStyle, tabVariants } from '~/components/tab/style.tsx';
 
-const TabComponent = ({ category }): JSX.Element => {
-    const categoryData = menuConfig.find((c) => c.value === category);
-    const options = categoryData?.options || [];
+const TabComponent = ({ category, variant }): JSX.Element => {
+    const { selectedOption, selectOption } = useMenuSelection();
+    const options = menuConfig.find((c) => c.value === category)?.options ?? [];
+    const activeTabIndex = options.findIndex((opt) => opt.value === selectedOption);
+    const handleTabChange = (index: number) => {
+        const selected = options[index];
+        if (selected) {
+            selectOption(category, selected.value);
+        }
+    };
+
+    const variantStyles = variant ? (tabVariants[variant] ?? {}) : {};
+
+    const mergedTabListStyle = {
+        ...tabBaseStyle?.tabList,
+        ...variantStyles?.tabList,
+    };
+
+    const mergedTabStyle = {
+        ...tabBaseStyle?.tab,
+        ...variantStyles?.tab,
+    };
 
     return (
-        <Tabs sx={{ ...tabStyle, maxWidth: '100%' }}>
-            <TabList
-                sx={{
-                    ...tabStyle.list,
-                    overflowX: 'auto',
-                    overflowY: 'hidden',
-                    flexWrap: 'nowrap',
-                    whiteSpace: 'nowrap',
-                    scrollbarWidth: 'none',
-                    '&::-webkit-scrollbar': {
-                        display: 'none',
-                    },
-                    borderBottom: '0',
-                }}
-            >
-                {options.map((option) => (
-                    <Tab
-                        key={option.value}
-                        color='lime.800'
-                        _selected={{ color: 'lime.500', borderColor: 'lime.500' }}
-                        fontWeight='medium'
-                        _focus={{ boxShadow: 'none' }}
-                        _hover={{ bg: 'transparent' }}
-                        _active={{ bg: 'transparent' }}
-                        flexShrink={0}
-                    >
-                        {option.label}
+        <Tabs
+            sx={tabBaseStyle.container}
+            index={activeTabIndex >= 0 ? activeTabIndex : 0}
+            onChange={handleTabChange}
+        >
+            <TabList sx={mergedTabListStyle}>
+                {options.map((opt) => (
+                    <Tab key={opt.value} sx={mergedTabStyle}>
+                        {opt.label}
                     </Tab>
                 ))}
             </TabList>

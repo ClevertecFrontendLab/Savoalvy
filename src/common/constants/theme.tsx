@@ -22,17 +22,99 @@ const customTheme = extendTheme({
         },
     },
     breakpoints: {
-        ml: '1375px',
         sm: '427px',
-        mh: '895px',
-        md: '785px',
-        bp: '1440px',
         bp1: '768px',
-        bp2: '1920px',
-        bp3: '920px',
+        md: '785px',
         bp4: '827px',
+        mh: '895px',
+        bp3: '920px',
         bp5: '1024px',
+        ml: '1375px',
+        bp: '1440px',
+        bp2: '1920px',
     },
+    fontSizes: {
+        xs: '0.75rem', // 12px
+        sm: '0.875rem', // 14px
+        md: '1rem', // 16px
+        lg: '1.125rem', // 18px
+        xl: '1.25rem', // 20px
+        '2xl': '1.5rem', // 24px
+        '3xl': '2.25rem', // 36px
+        '4xl': '3rem', // 48px
+    },
+    fontWeights: {
+        normal: 400,
+        medium: 500,
+        semiBold: 600,
+        bold: 700,
+    },
+    lineHeights: {
+        '1': 1, // 100%
+        '1.33': 1.33, // 133%
+        '1.4': 1.4, // 140%
+        '1.43': 1.43,
+        '1.5': 1.5,
+        '1.56': 1.56,
+        '1.11': 1.11,
+    },
+
+    textStyles: {
+        h1: {
+            fontSize: { base: '2xl', bp1: '4xl' },
+            lineHeight: { base: '1.33', bp1: '1' },
+            fontWeight: '700',
+        },
+        h2: {
+            fontSize: { base: 'sm', bp1: 'md' },
+            lineHeight: { base: '1.43', bp1: '1.5' },
+            fontWeight: '500',
+        },
+        hInput: {
+            fontSize: { base: 'sm', bp1: 'lg' },
+            fontWeight: '400',
+        },
+        tag: {
+            '& > *': {
+                fontWeight: 'medium',
+                fontSize: 'xs',
+            },
+        },
+    },
+
+    layerStyles: {
+        hInput: {
+            border: '1px solid',
+            borderColor: 'gray.150',
+            borderRadius: '6px',
+            outline: 'none',
+            _placeholder: {
+                color: 'lime.800',
+            },
+            _focus: {
+                borderColor: 'gray.150',
+                boxShadow: 'none',
+            },
+            _active: {
+                borderColor: 'gray.150',
+                boxShadow: 'none',
+            },
+            _hover: {
+                borderColor: 'gray.150',
+                boxShadow: 'none',
+            },
+        },
+        tag: {
+            border: '1px solid',
+            borderColor: 'lime.400',
+            backgroundColor: 'transparent',
+            borderRadius: '6px',
+            '& > *': {
+                color: 'lime.600',
+            },
+        },
+    },
+
     styles: {
         global: {
             '*': {
@@ -61,6 +143,8 @@ const customTheme = extendTheme({
                 width: '100vw',
                 minHeight: '100vh',
                 fontFamily: '"Inter", sans-serif',
+                fontOpticalSizing: 'auto',
+                fontStyle: 'normal',
             },
             'ul, ol': {
                 listStyle: 'none',
@@ -87,13 +171,12 @@ const customTheme = extendTheme({
             },
             img: {
                 userSelect: 'none',
-                display: 'block',
                 maxWidth: '100%',
                 height: 'auto',
             },
-            input: {
-                w: '100%',
-                h: '100%',
+            '.chakra-input': {
+                w: '100% !important',
+                h: '100% !important',
             },
         },
     },

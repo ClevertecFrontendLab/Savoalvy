@@ -4,7 +4,7 @@ export const mainPageStyle = {
     flexDirection: 'column',
     alignItems: 'center',
     gap: { bp: '40px', base: '32px' },
-    overflow: 'auto',
+    overflowY: 'auto',
 
     '&::-webkit-scrollbar': {
         display: 'none',

@@ -1,19 +1,18 @@
 import { GridItem } from '@chakra-ui/react';
+import { BsBookmarkHeart, BsFillPeopleFill } from 'react-icons/bs';
 
-import ChoiceIcon from '~/assets/icons/choice';
 import SmileIcon from '~/assets/icons/smile';
-import UsersIcon from '~/assets/icons/users';
 import RecipeButton from '~/components/buttons/Recipe';
 import StatisticComponent from '~/widgets/header/statistic';
 import { sideBarRightStyle } from '~/widgets/sideBarRight/style.tsx';
 
 const STATISTIC_CONFIG = [
     {
-        icon: ChoiceIcon,
+        icon: BsBookmarkHeart,
         value: 185,
     },
     {
-        icon: UsersIcon,
+        icon: BsFillPeopleFill,
         value: 589,
     },
     {
@@ -23,7 +22,7 @@ const STATISTIC_CONFIG = [
 ];
 const SideBarLeft = () => (
     <GridItem sx={sideBarRightStyle}>
-        <StatisticComponent sx={sideBarRightStyle.statistic} config={STATISTIC_CONFIG} />
+        <StatisticComponent variant='statistic' config={STATISTIC_CONFIG} />
         <RecipeButton />
     </GridItem>
 );
